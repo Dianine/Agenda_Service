@@ -22,6 +22,7 @@ public class PacienteService {
 
     public Paciente salvar(Paciente paciente){
         boolean existeCpf = false;
+
         Optional<Paciente> optPaciente = repository.findByCpf(paciente.getCpf());
             if(optPaciente.isPresent()){
                 if(!optPaciente.get().getId().equals(paciente.getId())){
@@ -34,6 +35,16 @@ public class PacienteService {
         return repository.save(paciente);
 
     }
+    public Paciente alterar(long id, Paciente paciente){
+        Optional<Paciente> optPaciente = this.buscarPorId(id);
+
+        if(optPaciente.isEmpty()){
+            throw new BusinessException("Paciente não cadastrado");
+        }
+        paciente.setId(id);
+        return salvar(paciente);
+    }
+
     public List<Paciente> listarTodos(){
         return repository.findAll();
 

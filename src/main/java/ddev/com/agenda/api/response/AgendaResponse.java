@@ -1,0 +1,22 @@
+package ddev.com.agenda.api.response;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import javax.persistence.Entity;
+import java.time.LocalDateTime;
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+public class AgendaResponse {
+
+    private Long id;
+    private String descricao;
+    private LocalDateTime horario;
+
+    private PacienteResponse paciente;
+
+}
