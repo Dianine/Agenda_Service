@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Entity
+@Table(name="agenda")
 @AllArgsConstructor
 @NoArgsConstructor
 public class Agenda {
