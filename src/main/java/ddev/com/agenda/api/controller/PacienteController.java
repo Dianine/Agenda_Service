@@ -17,17 +17,17 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/paciente")
+@RequestMapping(value = "/v1")
 @RequiredArgsConstructor
-//@Api(value = "API REST PACIENTES")
-//@CrossOrigin(origins = "*")
+@Api(value = "API REST PACIENTES")
+@CrossOrigin(origins = "*")
 public class PacienteController {
 
     private final PacienteService service;
     private final PacienteMapper mapper;
 
-    @PostMapping
-    //@ApiOperation(value = "Salva Paciente")
+    @ApiOperation(value = "Salva Paciente")
+    @PostMapping("/paciente")
     public ResponseEntity<PacienteResponse> salvar (@Valid @RequestBody PacienteRequest request){
         Paciente paciente = mapper.toPaciente(request);
         Paciente pacienteSalvo = service.salvar(paciente);
@@ -35,16 +35,16 @@ public class PacienteController {
         return ResponseEntity.status(HttpStatus.CREATED).body(pacienteResponse);
     }
 
-    @GetMapping
-    //@ApiOperation(value = "Lista Paciente")
+    @ApiOperation(value = "Lista Paciente")
+    @GetMapping("/pacientes")
     public ResponseEntity<List<PacienteResponse>> listarTodos(){
         List<Paciente> pacientes = service.listarTodos();
         List<PacienteResponse> pacienteResponse = mapper.toPacienteResponseList(pacientes);
         return ResponseEntity.status(HttpStatus.OK).body(pacienteResponse);
 
     }
-    @GetMapping("/{id}")
-    //@ApiOperation(value = "Busca Paciente Por Id")
+    @ApiOperation(value = "Busca Paciente Por Id")
+    @GetMapping("/paciente/{id}")
     public ResponseEntity<PacienteResponse> buscarPorId(@PathVariable Long id){
         Optional<Paciente> optPaciente = service.buscarPorId(id);
 
@@ -53,8 +53,8 @@ public class PacienteController {
             }
         return ResponseEntity.status(HttpStatus.OK).body(mapper.toPacienteResponse(optPaciente.get()));
 }
-    @PutMapping("/{id}")
-    //@ApiOperation(value = "Edita Paciente")
+    @ApiOperation(value = "Edita Paciente")
+    @PutMapping("/paciente/{id}")
     public ResponseEntity<PacienteResponse> alterar(@Valid @PathVariable Long id,  @RequestBody PacienteRequest request) {
         Paciente paciente = mapper.toPaciente(request);
         Paciente pacienteSalvo = service.alterar(id,paciente);
@@ -62,8 +62,8 @@ public class PacienteController {
         return ResponseEntity.status(HttpStatus.OK).body(pacienteResponse);
     }
 
-    @DeleteMapping("/{id}")
-    //@ApiOperation(value = "Deleta Paciente")
+    @ApiOperation(value = "Deleta Paciente")
+    @DeleteMapping("/paciente/{id}")
     public ResponseEntity<Void> deletar(@PathVariable Long id){
         service.deletar(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();

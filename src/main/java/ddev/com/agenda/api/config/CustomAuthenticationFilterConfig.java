@@ -45,7 +45,7 @@ public class CustomAuthenticationFilterConfig extends UsernamePasswordAuthentica
 
         String access_token = JWT.create()
                 .withSubject(user.getUsername())
-                .withExpiresAt(new Date(System.currentTimeMillis() + 10 * 60 *1000))
+                .withExpiresAt(new Date(System.currentTimeMillis() + 50 * 60 *1000))
                 .withIssuer(request.getRequestURL().toString())
                 .sign(algorithm);
 

@@ -1,11 +1,10 @@
 package ddev.com.agenda.api.controller;
 
 import ddev.com.agenda.api.mapper.AgendaMapper;
-import ddev.com.agenda.api.request.AgendaResquest;
+import ddev.com.agenda.api.request.AgendaRequest;
 import ddev.com.agenda.api.response.AgendaResponse;
 import ddev.com.agenda.domain.entity.Agenda;
 import ddev.com.agenda.domain.service.AgendaService;
-import ddev.com.agenda.exception.BusinessException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -19,25 +18,25 @@ import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/agenda")
-//@Api(value = "API REST AGENDA")
-//@CrossOrigin(origins = "*")
+@RequestMapping(value = "/v1")
+@Api(value = "API REST AGENDA")
+@CrossOrigin(origins = "*")
 public class AgendaController {
 
     private final AgendaService service;
     private final AgendaMapper mapper;
 
-    @PostMapping
-    //@ApiOperation(value = "Salva Agenda")
-    public ResponseEntity<AgendaResponse> salvar (@Valid @RequestBody AgendaResquest resquest){
-        Agenda agenda = mapper.toAgenda(resquest);
+    @ApiOperation(value = "Salva Agenda")
+    @PostMapping("/agenda")
+    public ResponseEntity<AgendaResponse> salvar (@Valid @RequestBody AgendaRequest request){
+        Agenda agenda = mapper.toAgenda(request);
         Agenda agendaSalva = service.salvar(agenda);
         AgendaResponse agendaResponse = mapper.toAgendaResponse(agendaSalva);
         return ResponseEntity.status(HttpStatus.CREATED).body(agendaResponse);
     }
 
-    @GetMapping
-    //@ApiOperation(value = "Lista Agendas")
+    @ApiOperation(value = "Lista Agendas")
+    @GetMapping("/agendas")
     public ResponseEntity<List<AgendaResponse>> buscarTodos(){
         List<Agenda> agendas = service.listarTodos();
         List<AgendaResponse> agendaResponses = mapper.toAgendaResponseList(agendas);
@@ -45,8 +44,8 @@ public class AgendaController {
         return ResponseEntity.status(HttpStatus.OK).body(agendaResponses);
     }
 
-    @GetMapping("/{id}")
-    //@ApiOperation(value = "Lista Agenda Por Id")
+    @ApiOperation(value = "Lista Agenda Por Id")
+    @GetMapping("/agenda/{id}")
     public ResponseEntity<AgendaResponse> buscarPorId(@PathVariable Long id){
         Optional<Agenda> optAgenda = service.buscarPorId(id);
         if (optAgenda.isEmpty()){

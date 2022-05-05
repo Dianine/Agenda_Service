@@ -1,16 +1,14 @@
 package ddev.com.agenda.domain.entity;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 @Getter
 @Setter
-@Builder
 @Entity
 @Table(name = "paciente")
-@AllArgsConstructor
-@NoArgsConstructor
 public class Paciente {
 
     @Id

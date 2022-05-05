@@ -6,11 +6,12 @@ import ddev.com.agenda.domain.entity.Paciente;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Configuration
+@Component
 @RequiredArgsConstructor
 public class PacienteMapper {
 

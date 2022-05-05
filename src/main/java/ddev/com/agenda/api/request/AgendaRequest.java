@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class AgendaResquest {
+public class AgendaRequest {
 
     @NotBlank
     private String descricao;
