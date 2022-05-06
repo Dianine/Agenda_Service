@@ -26,7 +26,7 @@ public class PacienteController {
     private final PacienteService service;
     private final PacienteMapper mapper;
 
-    @ApiOperation(value = "Salva Paciente")
+    @ApiOperation(value = "SALVA PACIENTE")
     @PostMapping("/paciente")
     public ResponseEntity<PacienteResponse> salvar (@Valid @RequestBody PacienteRequest request){
         Paciente paciente = mapper.toPaciente(request);
@@ -35,7 +35,7 @@ public class PacienteController {
         return ResponseEntity.status(HttpStatus.CREATED).body(pacienteResponse);
     }
 
-    @ApiOperation(value = "Lista Paciente")
+    @ApiOperation(value = "LISTA TODOS OS PACIENTES")
     @GetMapping("/pacientes")
     public ResponseEntity<List<PacienteResponse>> listarTodos(){
         List<Paciente> pacientes = service.listarTodos();
@@ -43,7 +43,7 @@ public class PacienteController {
         return ResponseEntity.status(HttpStatus.OK).body(pacienteResponse);
 
     }
-    @ApiOperation(value = "Busca Paciente Por Id")
+    @ApiOperation(value = "LISTA PACIENTE POR ID")
     @GetMapping("/paciente/{id}")
     public ResponseEntity<PacienteResponse> buscarPorId(@PathVariable Long id){
         Optional<Paciente> optPaciente = service.buscarPorId(id);
@@ -53,7 +53,7 @@ public class PacienteController {
             }
         return ResponseEntity.status(HttpStatus.OK).body(mapper.toPacienteResponse(optPaciente.get()));
 }
-    @ApiOperation(value = "Edita Paciente")
+    @ApiOperation(value = "EDITA PACIENTE")
     @PutMapping("/paciente/{id}")
     public ResponseEntity<PacienteResponse> alterar(@Valid @PathVariable Long id,  @RequestBody PacienteRequest request) {
         Paciente paciente = mapper.toPaciente(request);
@@ -62,7 +62,7 @@ public class PacienteController {
         return ResponseEntity.status(HttpStatus.OK).body(pacienteResponse);
     }
 
-    @ApiOperation(value = "Deleta Paciente")
+    @ApiOperation(value = "DELETA PACIENTE")
     @DeleteMapping("/paciente/{id}")
     public ResponseEntity<Void> deletar(@PathVariable Long id){
         service.deletar(id);

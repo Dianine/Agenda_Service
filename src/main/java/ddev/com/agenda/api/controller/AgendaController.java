@@ -26,7 +26,7 @@ public class AgendaController {
     private final AgendaService service;
     private final AgendaMapper mapper;
 
-    @ApiOperation(value = "Salva Agenda")
+    @ApiOperation(value = "SALVA AGENDA")
     @PostMapping("/agenda")
     public ResponseEntity<AgendaResponse> salvar (@Valid @RequestBody AgendaRequest request){
         Agenda agenda = mapper.toAgenda(request);
@@ -35,7 +35,7 @@ public class AgendaController {
         return ResponseEntity.status(HttpStatus.CREATED).body(agendaResponse);
     }
 
-    @ApiOperation(value = "Lista Agendas")
+    @ApiOperation(value = "LISTA TODAS AS AGENDAS")
     @GetMapping("/agendas")
     public ResponseEntity<List<AgendaResponse>> buscarTodos(){
         List<Agenda> agendas = service.listarTodos();
@@ -44,7 +44,7 @@ public class AgendaController {
         return ResponseEntity.status(HttpStatus.OK).body(agendaResponses);
     }
 
-    @ApiOperation(value = "Lista Agenda Por Id")
+    @ApiOperation(value = "LISTA AGENDA POR ID")
     @GetMapping("/agenda/{id}")
     public ResponseEntity<AgendaResponse> buscarPorId(@PathVariable Long id){
         Optional<Agenda> optAgenda = service.buscarPorId(id);
